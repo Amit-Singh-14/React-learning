@@ -1,23 +1,31 @@
-import logo from './logo.svg';
-import './App.css';
-
+import Header from "./Header";
+import Footer from "./Footer";
+import Content from "./Content";
 function App() {
+  // const [name, setName] = useState("amit");
+
+  // const handleclick = () => {
+  //   console.log("first clicked");
+  // };
+
+  // const handleclick2 = () => {
+  //   setName(xyz);
+  // };
+
+  // const xyz = "amitsfdsdfsdfsdfs";
+
+  // const handleclick3 = (name) => {
+  //   console.log(`${name} was clicked`);
+  // };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {/* <button onClick={handleclick}>1</button>
+      <button onClick={handleclick()}>2</button>
+      <button onClick={() => handleclick2()}>3</button>
+      <button onClick={() => handleclick3(name)}>4</button> */}
+      <Header />
+      <Content />
+      <Footer />
     </div>
   );
 }
