@@ -1,7 +1,7 @@
 import Itemlist from "./Itemlist";
 function Content({ items, handleCheck, handleDelete }) {
   return (
-    <main>
+    <>
       {/* {} expresstion hota h  */}
       {items.length ? (
         <Itemlist
@@ -12,7 +12,7 @@ function Content({ items, handleCheck, handleDelete }) {
       ) : (
         <p style={{ fontSize: "20px" }}>item list is empty</p>
       )}
-    </main>
+    </>
   );
 }
 
