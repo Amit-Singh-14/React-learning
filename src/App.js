@@ -4,6 +4,7 @@ import Content from "./Content";
 import { useState, useEffect } from "react";
 import AddItem from "./AddItem";
 import SearchItem from "./SearchItem";
+import apiRequest from "./apiRequest";
 
 function App() {
   const API_URL = "http://localhost:3500/items";
@@ -35,23 +36,55 @@ function App() {
     }, 1000);
   }, []);
 
-  const addItem = (item) => {
+  const addItem = async (item) => {
     const id = items.length ? items[items.length - 1].id + 1 : 1;
     const myNewItem = { id, checked: false, item };
     const listItems = [...items, myNewItem];
     setitems(listItems);
+
+    // ye object decide karega ki get krna post krna deleet jo bhi ho
+    const postOptions = {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify(myNewItem),
+    };
+    const result = await apiRequest(API_URL, postOptions);
+    if (result) setFetchError(result);
+    // console.log(result);
   };
 
-  const handleCheck = (id) => {
+  const handleCheck = async (id) => {
     const listItems = items.map((item) =>
       item.id === id ? { ...item, checked: !item.checked } : item
     );
     setitems(listItems);
+
+    const myitem = listItems.filter((item) => item.id === id);
+
+    const updateOption = {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ checked: myitem[0].checked }),
+    };
+
+    const reqUrl = `${API_URL}/${id}`;
+    const result = await apiRequest(reqUrl, updateOption);
+    if (result) setFetchError(result);
   };
 
-  const handleDelete = (id) => {
+  const handleDelete = async (id) => {
     const listItems = items.filter((item) => item.id !== id);
     setitems(listItems);
+
+    const deleteOption = { method: "DELETE" };
+    const reqUrl = `${API_URL}/${id}`;
+
+    const result = await apiRequest(reqUrl, deleteOption);
+    if (result) setFetchError(result);
   };
 
   const handleSubmit = (e) => {
